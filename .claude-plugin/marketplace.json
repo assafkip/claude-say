@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-say",
+  "description": "claude-say plugin marketplace",
+  "owner": { "name": "Assaf Kipnis", "url": "https://github.com/assafkip" },
+  "plugins": [
+    {
+      "name": "claude-say",
+      "source": "./",
+      "description": "/say - read Claude's last response aloud via OpenAI TTS, with playback controls",
+      "category": "productivity"
+    }
+  ]
+}

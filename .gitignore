@@ -1,0 +1,9 @@
+# secrets / runtime
+openai-key
+*.mp3
+.say-playing.pid
+
+# OS noise
+.DS_Store
+__pycache__/
+*.pyc

@@ -1,0 +1,11 @@
+{
+  "name": "claude-say",
+  "version": "1.0.0",
+  "description": "/say - read Claude's last response aloud via OpenAI TTS, with speed/seek/pause controls and over-SSH playback. Manual trigger, no auto-play.",
+  "author": {
+    "name": "Assaf Kipnis"
+  },
+  "repository": "https://github.com/assafkip/claude-say",
+  "license": "MIT",
+  "commands": "./commands/"
+}
