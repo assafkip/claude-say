@@ -271,7 +271,13 @@ def stop_playback():
     return "say: cleared any afplay/mpv playback."
 
 
-KNOWN_ARGS = {"stop", "--dry-run", "--dump-chunks", "--no-play"}
+KNOWN_ARGS = {"stop", "setup", "--dry-run", "--dump-chunks", "--no-play"}
+
+
+def setup_hint():
+    """Where to run first-time key setup. Setup is a terminal script, never a
+    chat flow, so the key never lands in the session transcript."""
+    return Path(__file__).resolve().parent / "say-setup.sh"
 
 
 def usage():
@@ -320,6 +326,15 @@ def main():
         # through to a real (paid) OpenAI call; now it never does.
         fail(f"say: unrecognized argument(s): {' '.join(unknown)}\n{usage()}")
 
+    if "setup" in args:
+        print(
+            "say: first-time setup runs in YOUR terminal (not through Claude), so "
+            "your key never enters the chat transcript:\n"
+            f"  bash {setup_hint()}\n"
+            "  (or set $OPENAI_API_KEY in your environment)"
+        )
+        return
+
     if "stop" in args:
         print(stop_playback())
         return
@@ -340,8 +355,10 @@ def main():
     api_key = read_api_key()
     if not api_key:
         fail(
-            "say: no OpenAI key. Set $OPENAI_API_KEY or write "
-            f"{KEY_FILE} (chmod 600). Then re-run /say."
+            "say: no OpenAI key. Easiest: run setup in your terminal —\n"
+            f"  bash {setup_hint()}\n"
+            f"Or set $OPENAI_API_KEY, or write {KEY_FILE} (chmod 600). "
+            "Then re-run /say."
         )
 
     try:

@@ -28,7 +28,18 @@ copy-paste into a separate TTS app.
 /plugin install claude-say
 ```
 
-Then set an OpenAI API key (read in this order):
+Then set an OpenAI API key. Easiest is the setup script — run it **in your own
+terminal** (not through Claude, so the key never enters a chat transcript). It
+prompts with the input hidden, verifies the key against OpenAI's free
+`/v1/models` endpoint, and writes it `chmod 600`:
+
+```bash
+bash scripts/say-setup.sh
+# offline / skip the network check:
+bash scripts/say-setup.sh --no-verify
+```
+
+The key is read in this order, so either of these also works:
 
 1. `$OPENAI_API_KEY` environment variable, or
 2. `~/.config/claude-say/openai-key` — a file containing just the key:
@@ -78,11 +89,13 @@ mpv keys: `[` `]` speed · `←`/`→` seek 5s · `↑`/`↓` 60s · `space` pau
 
 ## Test
 
-No network, key, or audio device needed — the arg guard runs before any
-synthesis:
+No network, key, or audio device needed. The arg guard runs before any
+synthesis; the setup test runs against a throwaway `$HOME` so it never touches a
+real key file:
 
 ```bash
-bash scripts/test/test-say-args.sh
+bash scripts/test/test-say-args.sh    # unknown args never cost money
+bash scripts/test/test-say-setup.sh   # key stored 600, no network, env wins
 ```
 
 ## License

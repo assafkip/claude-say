@@ -1,6 +1,6 @@
 ---
 description: Synthesize the previous assistant response to audio with controls (manual).
-argument-hint: [stop]
+argument-hint: [stop|setup]
 allowed-tools: Bash
 ---
 
@@ -36,6 +36,16 @@ mpv keys: `[` `]` speed | `<-`/`->` seek 5s | `up`/`down` 60s | `space` pause | 
 Needs `brew install mpv` (ffplay is a no-speed fallback if mpv is absent).
 
 ## Setup
+
+First time, run the setup script **in your own terminal** (not through Claude,
+so the key never enters the chat transcript). It prompts hidden, verifies the
+key, and writes it `chmod 600`:
+
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/say-setup.sh"
+```
+
+`/say setup` just prints that command — Claude can't securely receive a key.
 
 OpenAI API key, read in this order:
 1. `$OPENAI_API_KEY` environment variable
